@@ -1,0 +1,20 @@
+{
+  "name": "ember-cli-update-reporter",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.2"
+  },
+  "dependencies": {
+    "@babel/core": "^7.7.4"
+  },
+  "scripts": {
+    "test": "mocha test"
+  },
+  "files": [
+    "transform.js",
+    "index.js"
+  ]
+}
