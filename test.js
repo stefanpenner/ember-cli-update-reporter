@@ -26,6 +26,15 @@ describe('plugin', function() {
     expect(transformed.code).to.eql(`module.exports = { reporter: "xunit" };`);
   });
 
+  it('empty module.exports works with options', function() {
+    const transformed = babel.transform(`module.exports = {}`, {
+      plugins: [plugin('xunit', { report_file: 'build/test_results.xml', xunit_intermediate_output: true })],
+      filename: 'testem.js',
+      retainLines: true,
+    });
+    expect(transformed.code).to.eql(`module.exports = { reporter: "xunit", report_file: "build/test_results.xml", xunit_intermediate_output: true };`);
+  });
+
   it('with existing reporter', function() {
     const transformed = babel.transform(`module.exports = { reporter: 'apple' }`, {
       plugins: [plugin('xunit')],
@@ -33,5 +42,14 @@ describe('plugin', function() {
       retainLines: true,
     });
     expect(transformed.code).to.eql(`module.exports = { reporter: "xunit" };`);
+  });
+
+  it('with existing reporter and options', function() {
+    const transformed = babel.transform(`module.exports = { reporter: 'apple', report_file: 'siri.apl', xunit_intermediate_output: false }`, {
+      plugins: [plugin('xunit', { report_file: 'build/test_results.xml', xunit_intermediate_output: true })],
+      filename: 'testem.js',
+      retainLines: true,
+    });
+    expect(transformed.code).to.eql(`module.exports = { reporter: "xunit", report_file: "build/test_results.xml", xunit_intermediate_output: true };`);
   });
 });

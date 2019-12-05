@@ -1,9 +1,18 @@
 'use strict';
 
-module.exports = function(reporterName) {
+module.exports = function(reporterName, reporterOptions = {}) {
   return function(babel) {
     const { types: t } = babel;
 
+    function addOrReplaceProperty(properties, name, value) {
+      const property = properties.find(property => property.key.name === name);
+      if (property) {
+        property.value = value;
+      } else {
+        properties.push(t.objectProperty(t.identifier(name), value));
+      }
+    }
+    
     return {
       name: 'babel-update-ember-cli-test-reporter',
       visitor: {
@@ -21,21 +30,20 @@ module.exports = function(reporterName) {
             // as an object expression
             t.isObjectExpression(exported)
           ) {
-            const reporterValue = t.stringLiteral(reporterName);
             const properties = exported.properties;
-            // check to see if an existing reporter is specified
-            const reporter = properties.find(property => property.key.name === 'reporter');
+            
+            const reporterValue = t.stringLiteral(reporterName);
+            addOrReplaceProperty(properties, 'reporter', reporterValue);
 
-            if (reporter) {
-              // has a reporter, let's change it to xunit:
-              reporter.value = reporterValue;
-            } else {
-              // has no reporter, let's add one:
-              properties.push(t.objectProperty(t.identifier('reporter'), reporterValue));
-            }
+            Object.keys(reporterOptions).forEach(function (key) {
+              const value = reporterOptions[key];
+              const optionValue = (typeof value === 'boolean')? t.booleanLiteral(value) : t.stringLiteral(value);
+              addOrReplaceProperty(properties, key, optionValue);
+            });
           }
         }
       }
     };
   };
 }
+
