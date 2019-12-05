@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(reporterName, reporterOptions = {}) {
+module.exports = function(reporterOptions) {
   return function(babel) {
     const { types: t } = babel;
 
@@ -31,9 +31,6 @@ module.exports = function(reporterName, reporterOptions = {}) {
             t.isObjectExpression(exported)
           ) {
             const properties = exported.properties;
-            
-            const reporterValue = t.stringLiteral(reporterName);
-            addOrReplaceProperty(properties, 'reporter', reporterValue);
 
             Object.keys(reporterOptions).forEach(function (key) {
               const value = reporterOptions[key];

@@ -2,16 +2,18 @@
 const babel = require('@babel/core');
 const plugin = require('./plugin');
 
-module.exports = function(code, reporterName) {
+module.exports = function(code, reporterOptions) {
   const transformed = babel.transform(code, {
-    plugins: [plugin(reporterName)],
+    plugins: [plugin(reporterOptions)],
     filename: 'testem.js',
     retainLines: true,
   });
 
-  if (transformed.code.includes(reporterName)) {
-    return transformed.code;
-  } else {
-    throw new Error(`[babel-update-ember-cli-test-reporter] was unable to update testem.js's reporter to '${reporterName}'`)
-  }
+  Object.keys(reporterOptions).forEach(function (key) {
+    if (!transformed.code.includes(reporterOptions[key])) {
+      throw new Error("[babel-update-ember-cli-test-reporter] was unable to update testem.js's reporter")
+    }
+  });
+
+  return transformed.code;
 };
