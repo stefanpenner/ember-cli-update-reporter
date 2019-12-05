@@ -32,7 +32,7 @@ module.exports = function(reporterOptions) {
           ) {
             const properties = exported.properties;
 
-            Object.keys(reporterOptions).forEach(function (key) {
+            Object.keys(reporterOptions).forEach(key => {
               const value = reporterOptions[key];
               const optionValue = (typeof value === 'boolean')? t.booleanLiteral(value) : t.stringLiteral(value);
               addOrReplaceProperty(properties, key, optionValue);
