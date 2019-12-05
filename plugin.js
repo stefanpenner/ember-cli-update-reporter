@@ -12,7 +12,7 @@ module.exports = function(reporterOptions) {
         properties.push(t.objectProperty(t.identifier(name), value));
       }
     }
-    
+
     return {
       name: 'babel-update-ember-cli-test-reporter',
       visitor: {
@@ -34,7 +34,7 @@ module.exports = function(reporterOptions) {
 
             Object.keys(reporterOptions).forEach(key => {
               const value = reporterOptions[key];
-              const optionValue = (typeof value === 'boolean')? t.booleanLiteral(value) : t.stringLiteral(value);
+              const optionValue = (typeof value === 'boolean') ? t.booleanLiteral(value) : t.stringLiteral(value);
               addOrReplaceProperty(properties, key, optionValue);
             });
           }

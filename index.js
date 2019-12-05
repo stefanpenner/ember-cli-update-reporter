@@ -1,4 +1,5 @@
 'use strict';
+
 const babel = require('@babel/core');
 const plugin = require('./plugin');
 
@@ -11,7 +12,7 @@ module.exports = function(code, reporterOptions) {
 
   Object.keys(reporterOptions).forEach(key => {
     if (!transformed.code.includes(reporterOptions[key])) {
-      throw new Error("[babel-update-ember-cli-test-reporter] was unable to update testem.js's reporter")
+      throw new Error(`[babel-update-ember-cli-test-reporter] was unable to update testem.js's reporter`);
     }
   });
 
