@@ -14,7 +14,7 @@ module.exports = function(reporterOptions) {
     }
 
     return {
-      name: 'babel-update-ember-cli-test-reporter',
+      name: 'ember-cli-update-reporter',
       visitor: {
         AssignmentExpression(path) {
           const exports = path.node.left;
