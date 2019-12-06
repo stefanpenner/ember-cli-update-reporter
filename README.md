@@ -1,16 +1,16 @@
-# babel-update-ember-cli-test-reporter
+# ember-cli-update-reporter
 
 A utility to patch testem.js to use a specific reporter and reporting options.
 
 ## Install
 ```sh
-yarn add babel-update-ember-cli-test-reporter
+yarn add ember-cli-update-reporter
 ```
 
 ## Example
 
 ```js
-const updater = require('babel-update-ember-cli-test-reporter');
+const updater = require('ember-cli-update-reporter');
 
 const updatedCode = updater('module.exports = { /* ... */ };', { reporter: 'xunit', report_file: 'test_results.xml' });
 
