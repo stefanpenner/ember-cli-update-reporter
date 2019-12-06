@@ -14,7 +14,7 @@
     "test": "mocha test"
   },
   "files": [
-    "transform.js",
-    "index.js"
+    "index.js",
+    "plugin.js"
   ]
 }
