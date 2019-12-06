@@ -1,4 +1,5 @@
 # ember-cli-update-reporter
+[![Build Status](https://travis-ci.com/stefanpenner/babel-update-ember-cli-test-reporter.svg?branch=master)](https://travis-ci.com/stefanpenner/babel-update-ember-cli-test-reporter)
 
 A utility to patch testem.js to use a specific reporter and reporting options.
 
