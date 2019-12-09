@@ -7,7 +7,6 @@ module.exports = function(code, reporterOptions) {
   const transformed = babel.transform(code, {
     plugins: [plugin(reporterOptions)],
     filename: 'testem.js',
-    retainLines: true,
   });
 
   Object.keys(reporterOptions).forEach(key => {

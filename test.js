@@ -7,9 +7,24 @@ describe('index', function() {
   const index = require('./');
 
   it('works', function() {
-    expect(index(`module.exports = {}`, { reporter: 'testx' })).to.eql(`module.exports = { reporter: "testx" };`);
+    expect(index(`module.exports = {
+  other: 'prop'
+}`, { reporter: 'testx' })).to.eql(`module.exports = {
+  other: 'prop',
+  reporter: "testx"
+};`);
   });
 
+
+  it('replaces', function() {
+    expect(index(`module.exports = {
+  reporter: 'apple',
+  other: 'prop'
+}`, { reporter: 'testx' })).to.eql(`module.exports = {
+  reporter: "testx",
+  other: 'prop'
+};`);
+  });
   it('fails if it was unable to make a change', function() {
     expect(() => index(`module.exported = {}`, `{ reporter: 'testx' }`)).to.throw(/unable to update testem.js's reporter/);
   });
